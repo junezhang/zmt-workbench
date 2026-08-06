@@ -1,0 +1,11 @@
+# 本地测试/缓存
+.chromeprof/
+.workbuddy/
+*.log
+.DS_Store
+Thumbs.db
+
+# 启动脚本（GitHub Pages 用不到，且平台相关）
+启动.bat
+启动.command
+停止.sh

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>自媒体工作台 ✨</title>
+<meta name="description" content="每天自动更新的热点选题、爆款文案、搞钱灵感与成长打卡本">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#7AA5F7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="工作台">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div id="overlay" class="overlay"></div>
+
+<aside id="sidebar" class="sidebar">
+  <div class="brand">
+    <div class="brand-logo">🎨</div>
+    <div class="brand-text">
+      <b>自媒体工作台</b>
+      <span id="brandDate">今天也要发光</span>
+    </div>
+  </div>
+
+  <nav id="nav" class="nav"></nav>
+
+  <div class="side-foot">
+    <div id="sideStatus" class="side-status">数据加载中…</div>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <button id="menuBtn" class="icon-btn" aria-label="菜单">
+      <span class="burger"></span>
+    </button>
+    <div class="topbar-title" id="topTitle">首页</div>
+    <button id="refreshBtn" class="icon-btn ghost" title="重新读取今日数据">🔄</button>
+  </header>
+
+  <main id="view" class="view"></main>
+
+  <footer class="foot">
+    <span id="footInfo"></span>
+  </footer>
+</div>
+
+<div id="toast" class="toast"></div>
+<div id="fatal" class="fatal" style="display:none"></div>
+
+<script>
+/* 全局错误捕获：把白屏变成可见提示，方便定位 */
+function __showFatal(msg){
+  var f = document.getElementById('fatal');
+  if (f){ f.style.display = 'block'; f.textContent = '⚠️ 页面出错：' + msg + '（截图发我即可定位）'; }
+}
+window.addEventListener('error', function(e){ __showFatal((e && e.message) || '未知脚本错误'); });
+window.addEventListener('unhandledrejection', function(e){ __showFatal((e && e.reason && e.reason.message) || (e && e.reason) || '异步错误'); });
+</script>
+
+<script src="assets/js/store.js"></script>
+<script src="assets/js/writer.js"></script>
+<script src="assets/js/views.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "自媒体个人工作台",
+  "short_name": "工作台",
+  "description": "每天自动更新的热点选题、爆款文案、搞钱灵感与成长打卡本",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F7F9FF",
+  "theme_color": "#7AA5F7",
+  "lang": "zh-CN",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "今日选题", "url": "./index.html#/topics", "description": "看今天最火的话题" },
+    { "name": "写文案", "url": "./index.html#/writer", "description": "生成一篇公众号文章" },
+    { "name": "搞钱灵感", "url": "./index.html#/money", "description": "今天能做的小项目" }
+  ]
+}
