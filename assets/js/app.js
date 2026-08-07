@@ -234,9 +234,19 @@ document.addEventListener('change', e => {
 $('#menuBtn').onclick = () => $('#sidebar').classList.contains('open') ? closeSide() : openSide();
 $('#overlay').onclick = closeSide;
 $('#refreshBtn').onclick = () => {
+  const btn = $('#refreshBtn');
+  btn.textContent = '⏳'; btn.disabled = true;
   delete window.__DAILY__;
   DATA.from = '';
-  loadDaily().then(() => { updateStatus(); refreshView(); toast('数据已重新读取 🔄'); });
+  loadDaily().then(() => {
+    updateStatus(); refreshView();
+    btn.textContent = '🔄'; btn.disabled = false;
+    const t = today();
+    if (DATA.from === '今日抓取' && DATA.date === t) toast('已是最新 · 数据 ' + DATA.date + ' ✨');
+    else if (DATA.from === '今日抓取') toast('已读取 · 数据 ' + DATA.date);
+    else if (DATA.from === '离线缓存') toast('连不上服务器，显示离线缓存（' + DATA.date + '）');
+    else toast('暂无数据，请开启动.bat 或部署版');
+  });
 };
 window.addEventListener('hashchange', () => {
   const k = (location.hash || '').replace('#/', '');
@@ -246,9 +256,10 @@ window.addEventListener('hashchange', () => {
 function updateStatus() {
   const d = new Date();
   $('#brandDate').textContent = (d.getMonth() + 1) + '月' + d.getDate() + '日 · 连续 ' + streak() + ' 天';
-  const ok = DATA.from === '今日抓取';
+  const isToday = DATA.date === today();
+  const ok = DATA.from === '今日抓取' && isToday;
   $('#sideStatus').innerHTML = (ok ? '🟢' : '🟡') + ' ' + esc(DATA.from) +
-    (DATA.date ? '<br>数据日期 ' + esc(DATA.date) : '') +
+    (DATA.date ? '<br>数据日期 ' + esc(DATA.date) + (isToday ? '（已最新）' : '（点🔄或开启动.bat拉新）') : '') +
     '<br>' + DATA.topics.length + ' 条选题 · ' + DATA.money.length + ' 个项目';
   const swState = ('serviceWorker' in navigator)
     ? (navigator.serviceWorker.controller ? '离线缓存已启用' : '缓存待激活')
