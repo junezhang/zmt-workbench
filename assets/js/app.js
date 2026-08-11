@@ -67,6 +67,7 @@ document.addEventListener('click', e => {
     case 'check': toggleCheck(el.dataset.k); refreshView(); toast('打卡记上了 ✅'); break;
 
     case 'plat': TSTATE.plat = el.dataset.p; refreshView(); break;
+    case 'cat': TSTATE.cat = el.dataset.p; refreshView(); break;
     case 'bar': MSTATE.bar = el.dataset.b; refreshView(); break;
 
     case 'write':

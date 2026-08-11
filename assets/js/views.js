@@ -13,7 +13,7 @@ const MODULES = [
 ];
 
 const WSTATE = { topicId: '', angle: '行业趋势', seed: '1', result: null, custom: null };
-const TSTATE = { plat: '全部' };
+const TSTATE = { plat: '全部', cat: '全部' };
 const MSTATE = { bar: '全部' };
 
 const VIEWS = {};
@@ -91,14 +91,20 @@ VIEWS.home = () => {
 /* ---------------- 选题 ---------------- */
 VIEWS.topics = () => {
   const plats = ['全部'].concat(DB.prefs.platforms);
-  const list = DATA.topics.filter(t => TSTATE.plat === '全部' || (t.fit || [t.platform]).includes(TSTATE.plat));
+  const cats = ['全部', '艺术', '社会'];
+  const list = DATA.topics.filter(t =>
+    (TSTATE.plat === '全部' || (t.fit || [t.platform]).includes(TSTATE.plat)) &&
+    (TSTATE.cat === '全部' || (t.cat || '艺术') === TSTATE.cat)
+  );
   return `
-  <div class="page-head"><h1>🔥 今日选题</h1><p>每天早晨自动抓取，${DATA.topics.length} 条。热搜词只是线索，动笔前建议点开来源自己核一遍。</p></div>
+  <div class="page-head"><h1>🔥 今日选题</h1><p>每天早晨自动抓取，艺术与社会热点各半，${DATA.topics.length} 条。热搜词只是线索，动笔前建议点开来源自己核一遍。</p></div>
+  <div class="chips">${cats.map(c => `<span class="chip ${TSTATE.cat === c ? 'on' : ''}" data-act="cat" data-p="${esc(c)}">${esc(c === '全部' ? '全部类型' : (c === '艺术' ? '🎨 艺术类' : '🌐 社会类'))}</span>`).join('')}</div>
   <div class="chips">${plats.map(p => `<span class="chip ${TSTATE.plat === p ? 'on' : ''}" data-act="plat" data-p="${esc(p)}">${esc(p)}</span>`).join('')}</div>
   ${list.length ? `<div class="grid g2">${list.map(t => `
     <div class="topic-card">
       <div class="th">
         <span class="pill p">${esc(t.platform)}</span>
+        <span class="pill c">${esc(t.cat === '社会' ? '🌐 社会' : '🎨 艺术')}</span>
         <span class="pill y">${esc(t.heat || '在榜')}</span>
         ${t.article && t.article.body ? '<span class="pill g">已有精写稿</span>' : ''}
       </div>

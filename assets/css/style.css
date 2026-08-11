@@ -244,6 +244,7 @@ th{color:var(--muted);font-weight:500;font-size:12px;white-space:nowrap}
 .pill.g{background:#E4F7EF;color:#28956A}
 .pill.p{background:var(--pink-soft);color:var(--pink-deep)}
 .pill.y{background:#FFF4E0;color:#A9761D}
+.pill.c{background:var(--grad);color:#fff;font-weight:600}
 
 .mini{font-size:12px;color:var(--muted)}
 .hr{height:1px;background:var(--line);margin:13px 0}
